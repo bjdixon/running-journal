@@ -20,9 +20,24 @@
 
 <form action="{{ action }}" method="POST">
 	{% csrf_token %}
+	{% if form.non_field_errors %}
 	<ul>
-	{{ form.as_ul }}
+	{% for error in form.non_field_errors %}
+		<li class="alert-danger">{{ error }}</li>
+	{% endfor %}
 	</ul>
+	{% endif %}
+	{% for field in form %}
+	<div id="{{ field.auto_id }}_container">
+	{{ field.help_text }}
+	<div>{{ field.label_tag }} {{ field }}</div>
+	{% if field.errors %}
+	<div id="{{ field.auto_id }}_errors" class="alert-danger">
+		{{ field.errors }}
+	</div>
+	{% endif %}
+	</div>
+	{% endfor %}
 	<input id="save_journal" type="submit" value="Save"/>
 </form>
 {% if journal.id %}
