@@ -2,17 +2,17 @@ from django.http import HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse
 
-from journal.models import Journal
+from journal.models import Journal_Entry
 
 class ListJournalView(ListView):
 	
-	model = Journal
+	model = Journal_Entry
 	template_name = 'journal_list.html'
 
 
 class CreateJournalView(CreateView):
 
-	model = Journal
+	model = Journal_Entry
 	template_name = 'edit_journal.html'
 
 	def get_success_url(self):
@@ -26,7 +26,7 @@ class CreateJournalView(CreateView):
 
 class UpdateJournalView(UpdateView):
 
-	model = Journal
+	model = Journal_Entry
 	template_name = 'edit_journal.html'
 
 	def get_success_url(self):
@@ -40,7 +40,7 @@ class UpdateJournalView(UpdateView):
 
 class DeleteJournalView(DeleteView):
 
-	model = Journal
+	model = Journal_Entry
 	template_name = 'delete_journal.html'
 
 	def get_success_url(self):
@@ -49,7 +49,7 @@ class DeleteJournalView(DeleteView):
 
 class DetailJournalView(DetailView):
 
-	model = Journal
+	model = Journal_Entry
 	template_name = 'detail_journal.html'
 
 

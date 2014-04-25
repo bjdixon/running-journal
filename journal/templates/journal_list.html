@@ -8,10 +8,10 @@ Running journal
 <h1>Running Journal</h1>
 <a href="{% url 'journal_new' %}">Add journal entry</a>
 <ul>
-	{% for journal in object_list %}
+	{% for journal_entry in object_list %}
 	<li>
-	<a href="{{ journal.get_absolute_url }}">{{ journal }}</a>
-	(<a href="{% url 'journal_edit' pk=journal.id %}">Edit</a>)
+	<a href="{{ journal_entry.get_absolute_url }}">{{ journal_entry }}</a>
+	(<a href="{% url 'journal_edit' pk=journal_entry.id %}">Edit</a>)
 	</li>
 	{% endfor %}
 </ul>

@@ -12,7 +12,7 @@ class JournalListViewTests(TestCase):
 		response = client.get('/')
 		self.assertEqual(list(response.context['object_list']), [])
 
-		Journal.objects.create(route='a path', distance_in_kilometers=10)
+		Journal_Entry.objects.create(route='a path', distance_in_kilometers=10)
 		response = client.get('/')
 		self.assertEqual(response.context['object_list'].count(), 1)
 
@@ -22,7 +22,7 @@ class JournalListViewTests(TestCase):
 		response = ListJournalView.as_view()(request)
 		self.assertEqual(list(response.context_data['object_list']), [])
 
-		Journal.objects.create(route='a path', distance_in_kilometers=10)
+		Journal_Entry.objects.create(route='a path', distance_in_kilometers=10)
 		response = ListJournalView.as_view()(request)
 		self.assertEqual(response.context_data['object_list'].count(), 1)
 

@@ -2,7 +2,7 @@
 
 {% block page_title %}
 
-	{% if journal.id %}
+	{% if journal_entry.id %}
 		Edit an entry
 	{% else %}
 		Add an entry
@@ -12,7 +12,7 @@
 
 {% block content %}
 
-{% if journal.id %}
+{% if journal_entry.id %}
 	<h2>Edit an entry</h2>
 {% else %}
 	<h2>Add an entry</h2>
@@ -40,8 +40,8 @@
 	{% endfor %}
 	<input id="save_journal" type="submit" value="Save"/>
 </form>
-{% if journal.id %}
-<a href="{% url 'journal_delete' pk=journal.id %}">Delete</a><br>
+{% if journal_entry.id %}
+<a href="{% url 'journal_delete' pk=journal_entry.id %}">Delete</a><br>
 {% endif %}
 <a href="{% url 'journal_list' %}">Back to list</a>
 

@@ -19,7 +19,7 @@ class JournalListIntegrationTests(LiveServerTestCase):
 		super(JournalListIntegrationTests, cls).tearDownClass()
 
 	def test_journal_listed(self):
-		Journal.objects.create(route='a path', distance_in_kilometers=10)
+		Journal_Entry.objects.create(route='a path', distance_in_kilometers=10)
 		self.selenium.get('%s%s' % (self.live_server_url, '/'))
 		self.assertEqual(
 			self.selenium.find_elements_by_tag_name('li')[0].text,

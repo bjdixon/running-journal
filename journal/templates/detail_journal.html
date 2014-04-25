@@ -6,16 +6,16 @@ Entry Details
 
 {% block content %}
 
-<h2>{{ journal.route }}({{ journal.date }})</h2>
+<h2>{{ journal_entry.route }}({{ journal_entry.date }})</h2>
 <p>
-Distance: {{ journal.distance_in_kilometers }}<br>
+Distance: {{ journal_entry.distance_in_kilometers }}<br>
 Time: <br>
 </p>
 <strong>Notes:</strong><br>
-{{ journal.notes }}
+{{ journal_entry.notes }}
 <p>
 <p>
-<a href="{% url 'journal_delete' pk=journal.id %}">Delete</a><br>
+<a href="{% url 'journal_delete' pk=journal_entry.id %}">Delete</a><br>
 <a href="{% url 'journal_list' %}">Back to list</a>
 </p>
 {% endblock %}

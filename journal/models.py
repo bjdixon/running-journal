@@ -3,7 +3,7 @@ from datetime import date
 from django.core.urlresolvers import reverse
 
 
-class Journal(models.Model):
+class Journal_Entry(models.Model):
 
 	route = models.CharField(max_length=140)
 	distance_in_kilometers = models.FloatField()
