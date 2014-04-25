@@ -25,5 +25,9 @@
 	</ul>
 	<input id="save_journal" type="submit" value="Save"/>
 </form>
+{% if journal.id %}
+<a href="{% url 'journal_delete' pk=journal.id %}">Delete</a><br>
+{% endif %}
 <a href="{% url 'journal_list' %}">Back to list</a>
+
 {% endblock %}
