@@ -23,16 +23,16 @@ class JournalListIntegrationTests(LiveServerTestCase):
 		self.selenium.get('%s%s' % (self.live_server_url, '/'))
 		self.assertEqual(
 			self.selenium.find_elements_by_tag_name('li')[0].text,
-			'a path 10.0KM ' + str(date.today())
+			'a path 10.0KM ' + str(date.today()) + ' (Edit)'
 		)
 
 	def test_add_journal_linked(self):
 		self.selenium.get('%s%s' % (self.live_server_url, '/'))
-		self.assert_(self.selenium.find_element_by_link_text('Add journal'))
+		self.assert_(self.selenium.find_element_by_link_text('Add journal entry'))
 
 	def test_add_journal(self):
 		self.selenium.get('%s%s' % (self.live_server_url, '/'))
-		self.selenium.find_element_by_link_text('Add journal').click()
+		self.selenium.find_element_by_link_text('Add journal entry').click()
 
 		self.selenium.find_element_by_id('id_route').send_keys('test')
 		self.selenium.find_element_by_id('id_distance_in_kilometers').send_keys('10')
@@ -40,5 +40,5 @@ class JournalListIntegrationTests(LiveServerTestCase):
 		
 		self.assertEqual(
 			self.selenium.find_elements_by_tag_name('li')[-1].text,
-			'test 10.0KM ' + str(date.today())
+			'test 10.0KM ' + str(date.today()) + ' (Edit)'
 		)

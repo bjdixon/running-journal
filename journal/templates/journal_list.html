@@ -1,7 +1,18 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Running journal
+{% endblock %}
+
+{% block content %}
 <h1>Running Journal</h1>
-<a href="{% url 'journal_new' %}">Add journal</a>
+<a href="{% url 'journal_new' %}">Add journal entry</a>
 <ul>
 	{% for journal in object_list %}
-	<li>{{ journal }}</li>
+	<li>
+	{{ journal }}
+	(<a href="{% url 'journal_edit' pk=journal.id %}">Edit</a>)
+	</li>
 	{% endfor %}
 </ul>
+{% endblock %}

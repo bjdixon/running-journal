@@ -8,5 +8,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', journal.views.ListJournalView.as_view(), name='journal_list'),
-	url(r'^new$', journal.views.CreateJournalView.as_view(), name='journal_new'),
+	url(r'^journal/', include('journal.urls')),
 )

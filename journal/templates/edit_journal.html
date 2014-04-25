@@ -1,5 +1,24 @@
-<h1>Add Journal</h1>
-<form action="{% url 'journal_new' %}" method="POST">
+{% extends 'base.html' %}
+
+{% block page_title %}
+
+	{% if journal.id %}
+		Edit an entry
+	{% else %}
+		Add an entry
+	{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+{% if journal.id %}
+	<h2>Edit an entry</h2>
+{% else %}
+	<h2>Add an entry</h2>
+{% endif %}
+
+<form action="{{ action }}" method="POST">
 	{% csrf_token %}
 	<ul>
 	{{ form.as_ul }}
@@ -7,3 +26,4 @@
 	<input id="save_journal" type="submit" value="Save"/>
 </form>
 <a href="{% url 'journal_list' %}">Back to list</a>
+{% endblock %}
