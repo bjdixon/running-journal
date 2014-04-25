@@ -1,0 +1,7 @@
+<h1>Running Journal</h1>
+<a href="{% url 'journal_new' %}">Add journal</a>
+<ul>
+	{% for journal in object_list %}
+	<li>{{ journal }}</li>
+	{% endfor %}
+</ul>

@@ -1,12 +1,12 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
+
+import journal.views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'running_journal.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
     url(r'^admin/', include(admin.site.urls)),
+	url(r'^$', journal.views.ListJournalView.as_view(), name='journal_list'),
+	url(r'^new$', journal.views.CreateJournalView.as_view(), name='journal_new'),
 )

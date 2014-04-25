@@ -1,0 +1,9 @@
+<h1>Add Journal</h1>
+<form action="{% url 'journal_new' %}" method="POST">
+	{% csrf_token %}
+	<ul>
+	{{ form.as_ul }}
+	</ul>
+	<input id="save_journal" type="submit" value="Save"/>
+</form>
+<a href="{% url 'journal_list' %}">Back to list</a>
