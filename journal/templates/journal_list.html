@@ -10,7 +10,7 @@ Running journal
 <ul>
 	{% for journal in object_list %}
 	<li>
-	{{ journal }}
+	<a href="{{ journal.get_absolute_url }}">{{ journal }}</a>
 	(<a href="{% url 'journal_edit' pk=journal.id %}">Edit</a>)
 	</li>
 	{% endfor %}

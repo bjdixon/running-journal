@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Entry Details
+{% endblock %}
+
+{% block content %}
+
+<h2>{{ journal.route }}({{ journal.date }})</h2>
+<p>
+Distance: {{ journal.distance_in_kilometers }}<br>
+Time: <br>
+</p>
+<strong>Notes:</strong><br>
+{{ journal.notes }}
+<p>
+<p>
+<a href="{% url 'journal_delete' pk=journal.id %}">Delete</a><br>
+<a href="{% url 'journal_list' %}">Back to list</a>
+</p>
+{% endblock %}

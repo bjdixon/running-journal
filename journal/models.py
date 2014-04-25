@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.core.urlresolvers import reverse
 
 
 class Journal(models.Model):
@@ -15,4 +16,7 @@ class Journal(models.Model):
 			str(self.distance_in_kilometers) + 'KM',
 			str(self.date),
 		])
+
+	def get_absolute_url(self):
+		return reverse('journal_detail', kwargs={'pk': self.id})
 

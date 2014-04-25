@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse
 
 from journal.models import Journal
@@ -45,4 +45,11 @@ class DeleteJournalView(DeleteView):
 
 	def get_success_url(self):
 		return reverse('journal_list')
+
+
+class DetailJournalView(DetailView):
+
+	model = Journal
+	template_name = 'detail_journal.html'
+
 
