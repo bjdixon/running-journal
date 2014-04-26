@@ -9,6 +9,7 @@ class Journal_Entry(models.Model):
 	distance_in_kilometers = models.FloatField()
 	notes = models.TextField(blank=True, null=True)
 	date = models.DateField(default=date.today())
+	duration = models.IntegerField(default=30)
 	
 	def __str__(self):
 		return ' '.join([
@@ -18,5 +19,5 @@ class Journal_Entry(models.Model):
 		])
 
 	def get_absolute_url(self):
-		return reverse('journal_detail', kwargs={'pk': self.id})
+		return reverse('journal_entry_detail', kwargs={'pk': self.id})
 

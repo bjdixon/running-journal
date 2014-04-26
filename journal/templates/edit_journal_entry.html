@@ -38,11 +38,11 @@
 	{% endif %}
 	</div>
 	{% endfor %}
-	<input id="save_journal" type="submit" value="Save"/>
+	<input id="save_journal_entry" type="submit" value="Save"/>
 </form>
 {% if journal_entry.id %}
-<a href="{% url 'journal_delete' pk=journal_entry.id %}">Delete</a><br>
+<a href="{% url 'journal_entry_delete' pk=journal_entry.id %}">Delete</a><br>
 {% endif %}
-<a href="{% url 'journal_list' %}">Back to list</a>
+<a href="{% url 'journal_entry_list' %}">Back to list</a>
 
 {% endblock %}

@@ -15,7 +15,7 @@ Time: <br>
 {{ journal_entry.notes }}
 <p>
 <p>
-<a href="{% url 'journal_delete' pk=journal_entry.id %}">Delete</a><br>
-<a href="{% url 'journal_list' %}">Back to list</a>
+<a href="{% url 'journal_entry_delete' pk=journal_entry.id %}">Delete</a><br>
+<a href="{% url 'journal_entry_list' %}">Back to list</a>
 </p>
 {% endblock %}

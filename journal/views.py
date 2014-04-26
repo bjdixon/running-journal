@@ -4,52 +4,52 @@ from django.core.urlresolvers import reverse
 
 from journal.models import Journal_Entry
 
-class ListJournalView(ListView):
+class ListJournalEntriesView(ListView):
 	
 	model = Journal_Entry
-	template_name = 'journal_list.html'
+	template_name = 'journal_entry_list.html'
 
 
-class CreateJournalView(CreateView):
+class CreateJournalEntryView(CreateView):
 
 	model = Journal_Entry
-	template_name = 'edit_journal.html'
+	template_name = 'edit_journal_entry.html'
 
 	def get_success_url(self):
-		return reverse('journal_list')
+		return reverse('journal_entry_list')
 
 	def get_context_data(self, **kwargs):
-		context = super(CreateJournalView, self).get_context_data(**kwargs)
-		context['action'] = reverse('journal_new')
+		context = super(CreateJournalEntryView, self).get_context_data(**kwargs)
+		context['action'] = reverse('journal_entry_new')
 		return context
 
 
-class UpdateJournalView(UpdateView):
+class UpdateJournalEntryView(UpdateView):
 
 	model = Journal_Entry
-	template_name = 'edit_journal.html'
+	template_name = 'edit_journal_entry.html'
 
 	def get_success_url(self):
-		return reverse('journal_list')
+		return reverse('journal_entry_list')
 
 	def get_context_data(self, **kwargs):
-		context = super(UpdateJournalView, self).get_context_data(**kwargs)
-		context['action'] = reverse('journal_edit', kwargs={'pk': self.get_object().id})
+		context = super(UpdateJournalEntryView, self).get_context_data(**kwargs)
+		context['action'] = reverse('journal_entry_edit', kwargs={'pk': self.get_object().id})
 		return context
 
 
-class DeleteJournalView(DeleteView):
+class DeleteJournalEntryView(DeleteView):
 
 	model = Journal_Entry
-	template_name = 'delete_journal.html'
+	template_name = 'delete_journal_entry.html'
 
 	def get_success_url(self):
-		return reverse('journal_list')
+		return reverse('journal_entry_list')
 
 
-class DetailJournalView(DetailView):
+class DetailJournalEntryView(DetailView):
 
 	model = Journal_Entry
-	template_name = 'detail_journal.html'
+	template_name = 'detail_journal_entry.html'
 
 

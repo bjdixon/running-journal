@@ -4,11 +4,11 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import journal.views
 
 urlpatterns = patterns('',
-	url(r'^$', journal.views.ListJournalView.as_view(), name='journal_list'),
-	url(r'^new/$', journal.views.CreateJournalView.as_view(), name='journal_new'),
-	url(r'^edit/(?P<pk>\d+)/$', journal.views.UpdateJournalView.as_view(), name='journal_edit'),
-	url(r'^delete/(?P<pk>\d+)/$', journal.views.DeleteJournalView.as_view(), name='journal_delete'),
-	url(r'^entry/(?P<pk>\d+)/$', journal.views.DetailJournalView.as_view(), name='journal_detail'),
+	url(r'^$', journal.views.ListJournalEntriesView.as_view(), name='journal_entry_list'),
+	url(r'^new/entry/$', journal.views.CreateJournalEntryView.as_view(), name='journal_entry_new'),
+	url(r'^edit/entry/(?P<pk>\d+)/$', journal.views.UpdateJournalEntryView.as_view(), name='journal_entry_edit'),
+	url(r'^delete/entry/(?P<pk>\d+)/$', journal.views.DeleteJournalEntryView.as_view(), name='journal_entry_delete'),
+	url(r'^detail/entry/(?P<pk>\d+)/$', journal.views.DetailJournalEntryView.as_view(), name='journal_entry_detail'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
