@@ -1,6 +1,7 @@
 from datetime import date
 from django.test.client import Client, RequestFactory
 from django.test import TestCase, LiveServerTestCase
+from django.core.urlresolvers import reverse
 from selenium.webdriver.firefox.webdriver import WebDriver
 
 from journal.views import *
@@ -20,18 +21,18 @@ class JournalEntryIntegrationTests(LiveServerTestCase):
 
 	def test_journal_entry_listed(self):
 		Journal_Entry.objects.create(route='a path', distance_in_kilometers=10)
-		self.selenium.get('%s%s' % (self.live_server_url, '/journal/'))
+		self.selenium.get('%s%s' % (self.live_server_url, reverse('journal_entry_list')))
 		self.assertEqual(
 			self.selenium.find_elements_by_tag_name('li')[0].text,
 			'a path 10.0KM ' + str(date.today()) + ' (Edit)'
 		)
 
 	def test_add_journal_entry_linked(self):
-		self.selenium.get('%s%s' % (self.live_server_url, '/journal/'))
+		self.selenium.get('%s%s' % (self.live_server_url, reverse('journal_entry_list')))
 		self.assert_(self.selenium.find_element_by_link_text('Add journal entry'))
 
 	def test_add_journal_entry(self):
-		self.selenium.get('%s%s' % (self.live_server_url, '/journal/'))
+		self.selenium.get('%s%s' % (self.live_server_url, reverse('journal_entry_list')))
 		self.selenium.find_element_by_link_text('Add journal entry').click()
 
 		self.selenium.find_element_by_id('id_route').send_keys('test')

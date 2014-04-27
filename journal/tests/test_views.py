@@ -2,6 +2,7 @@ from datetime import date
 
 from django.test.client import Client, RequestFactory
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 
 from journal.views import *
 
@@ -11,16 +12,16 @@ class JournalEntryListViewTests(TestCase):
 
 	def test_journals_in_the_context(self):
 		client = Client()
-		response = client.get('/journal/')
+		response = client.get(reverse('journal_entry_list'))
 		self.assertEqual(list(response.context['object_list']), [])
 
 		Journal_Entry.objects.create(route='a path', distance_in_kilometers=10)
-		response = client.get('/journal/')
+		response = client.get(reverse('journal_entry_list'))
 		self.assertEqual(response.context['object_list'].count(), 1)
 
 	def test_journals_in_the_context_request_factory(self):
 		factory = RequestFactory()
-		request = factory.get('/journal/')
+		request = factory.get(reverse('journal_entry_list'))
 		response = ListJournalEntriesView.as_view()(request)
 		self.assertEqual(list(response.context_data['object_list']), [])
 
@@ -29,7 +30,7 @@ class JournalEntryListViewTests(TestCase):
 		self.assertEqual(response.context_data['object_list'].count(), 1)
 
 	def test_uses_correct_template(self):
-		response = self.client.get('/journal/')
+		response = self.client.get(reverse('journal_entry_list'))
 		self.assertTemplateUsed(response, 'journal_entry_list.html')
 
 
@@ -37,7 +38,7 @@ class CreateJournalEntryViewTests(TestCase):
 
 	def test_creating_journal_entry(self):
 		response = self.client.post(
-			'/journal/new/entry/',
+			reverse('journal_entry_new'),	
 			data={
 				'route': 'route',
 				'distance_in_kilometers': '10',
@@ -50,7 +51,7 @@ class CreateJournalEntryViewTests(TestCase):
 		self.assertEqual(entry.route, 'route')
 
 	def test_uses_correct_template(self):
-		response = self.client.get('/journal/new/entry/')
+		response = self.client.get(reverse('journal_entry_new'))
 		self.assertTemplateUsed(response, 'edit_journal_entry.html')
 
 
@@ -66,7 +67,7 @@ class UpdateJournalEntryViewTests(TestCase):
 			date=date.today(),
 			duration=30
 		)
-		response = self.client.get('/journal/edit/entry/1/')
+		response = self.client.get(reverse('journal_entry_edit', kwargs={'pk': 1}))
 		self.assertTemplateUsed(response, 'edit_journal_entry.html')
 
 
