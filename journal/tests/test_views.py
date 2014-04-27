@@ -35,6 +35,7 @@ class JournalEntryListViewTests(TestCase):
 
 
 class CreateJournalEntryViewTests(TestCase):
+	""" Create journal entry view tests"""
 
 	def test_creating_journal_entry(self):
 		response = self.client.post(
@@ -56,6 +57,7 @@ class CreateJournalEntryViewTests(TestCase):
 
 
 class UpdateJournalEntryViewTests(TestCase):
+	""" Update journal entry view tests"""
 
 	def test_updating_journal_entry(self):
 		create_journal_entry()
@@ -80,6 +82,7 @@ class UpdateJournalEntryViewTests(TestCase):
 
 
 class DeleteJournalEntryViewTests(TestCase):
+	"""Delete journal entry view tests"""
 
 	def test_deleting_journal_entry(self):
 		create_journal_entry()
@@ -95,6 +98,7 @@ class DeleteJournalEntryViewTests(TestCase):
 		self.assertTemplateUsed(response, 'delete_journal_entry.html')
 
 class DetailJournalEntryViewTests(TestCase):
+	"""Journal entry details view tests"""
 
 	def test_viewing_entry_details(self):
 		create_journal_entry()

@@ -12,7 +12,7 @@ Delete an entry
 </p>
 <form action="{% url 'journal_entry_delete' pk=journal_entry.id %}" method="POST">
 	{% csrf_token %}
-	<input id="journal_delete" type="submit" value="Yes, Delete"/>
+	<input id="journal_entry_delete" type="submit" value="Yes, Delete"/>
 </form>
 <a href="{% url 'journal_entry_list' %}">No, Abort!</a>
 
