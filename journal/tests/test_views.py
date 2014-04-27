@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from journal.views import *
-
+from journal.tests.utils import create_journal_entry
 
 class JournalEntryListViewTests(TestCase):
 	"""Journal entry list view tests"""
@@ -58,15 +58,23 @@ class CreateJournalEntryViewTests(TestCase):
 class UpdateJournalEntryViewTests(TestCase):
 
 	def test_updating_journal_entry(self):
-		pass
+		create_journal_entry()
+		self.assertEqual(Journal_Entry.objects.all().count(), 1)
+		response = self.client.post(
+			reverse('journal_entry_edit', kwargs={'pk': 1}),
+			data={
+				'route': 'new route',
+				'distance_in_kilometers': 10,
+				'date': str(date.today()),
+				'duration': '30',
+			}
+		)
+		self.assertEqual(Journal_Entry.objects.all().count(), 1)
+		entry = Journal_Entry.objects.all()[0]
+		self.assertEqual(entry.route, 'new route')
 
 	def test_uses_correct_template(self):
-		Journal_Entry.objects.create(
-			route='route',
-			distance_in_kilometers=10,
-			date=date.today(),
-			duration=30
-		)
+		create_journal_entry()
 		response = self.client.get(reverse('journal_entry_edit', kwargs={'pk': 1}))
 		self.assertTemplateUsed(response, 'edit_journal_entry.html')
 
@@ -74,17 +82,42 @@ class UpdateJournalEntryViewTests(TestCase):
 class DeleteJournalEntryViewTests(TestCase):
 
 	def test_deleting_journal_entry(self):
-		pass
+		create_journal_entry()
+		self.assertEqual(Journal_Entry.objects.all().count(), 1)
+		response = self.client.post(
+			reverse('journal_entry_delete', kwargs={'pk': 1}),
+		)
+		self.assertEqual(Journal_Entry.objects.all().count(), 0)
 
 	def test_uses_correct_template(self):
-		pass
-
+		create_journal_entry()
+		response = self.client.get(reverse('journal_entry_delete', kwargs={'pk': 1}))
+		self.assertTemplateUsed(response, 'delete_journal_entry.html')
 
 class DetailJournalEntryViewTests(TestCase):
 
 	def test_viewing_entry_details(self):
-		pass
+		create_journal_entry()
+		response = self.client.get(reverse('journal_entry_detail', kwargs={'pk': 1}))
+		self.assertEqual(
+			response.context_data['journal_entry'].route,
+			'route'
+		)
+		self.assertEqual(
+			response.context_data['journal_entry'].distance_in_kilometers,
+			10.0	
+		)
+		self.assertEqual(
+			response.context_data['journal_entry'].date,
+			date.today()
+		)
+		self.assertEqual(
+			response.context_data['journal_entry'].duration,
+			30
+		)
 
 	def test_uses_correct_template(self):
-		pass
+		create_journal_entry()
+		response = self.client.get(reverse('journal_entry_detail', kwargs={'pk': 1}))
+		self.assertTemplateUsed(response, 'detail_journal_entry.html')
 
