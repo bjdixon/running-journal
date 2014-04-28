@@ -58,18 +58,25 @@ class JournalEntryIntegrationTests(LiveServerTestCase):
 		)
 
 	def test_view_journal_entry_details(self):
-		create_journal_entry()
+		journal_entry = create_journal_entry()
+		journal_entry.notes = 'notes on a route are here'
+		journal_entry.save()
 		self.selenium.get('%s%s' % (self.live_server_url, reverse('journal_entry_list')))
 		self.selenium.find_element_by_link_text('route 10.0KM ' + str(date.today())).click()
 		h2 = self.selenium.find_element_by_tag_name('h2').text
-		paragraph = self.selenium.find_element_by_tag_name('p').text
+		details_paragraph = self.selenium.find_element_by_id('details').text
+		notes_paragraph = self.selenium.find_element_by_id('notes').text
 		self.assertEqual(
 			h2,
 			'route (' + date.today().strftime("%B %d, %Y")  + ')'
 		)
 		self.assertEqual(
-			paragraph,
+			details_paragraph,
 			'Distance: 10.0KM\nTime:'
+		)
+		self.assertEqual(
+			notes_paragraph,
+			'Notes:\nnotes on a route are here'
 		)
 
 	def test_delete_journal_entry_from_entry_details_view(self):

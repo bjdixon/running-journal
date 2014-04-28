@@ -7,13 +7,14 @@ Entry Details
 {% block content %}
 
 <h2>{{ journal_entry.route }} ({{ journal_entry.date }})</h2>
-<p>
+<p id='details'>
 Distance: {{ journal_entry.distance_in_kilometers }}KM<br>
 Time: <br>
 </p>
+<p id='notes'>
 <strong>Notes:</strong><br>
 {{ journal_entry.notes }}
-<p>
+</p>
 <p>
 <a href="{% url 'journal_entry_delete' pk=journal_entry.id %}">Delete</a><br>
 <a href="{% url 'journal_entry_list' %}">Back to list</a>

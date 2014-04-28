@@ -101,7 +101,9 @@ class DetailJournalEntryViewTests(TestCase):
 	"""Journal entry details view tests"""
 
 	def test_viewing_entry_details(self):
-		create_journal_entry()
+		journal_entry = create_journal_entry()
+		journal_entry.notes = 'this is a note'
+		journal_entry.save()
 		response = self.client.get(reverse('journal_entry_detail', kwargs={'pk': 1}))
 		self.assertEqual(
 			response.context_data['journal_entry'].route,
@@ -118,6 +120,10 @@ class DetailJournalEntryViewTests(TestCase):
 		self.assertEqual(
 			response.context_data['journal_entry'].duration,
 			30
+		)
+		self.assertEqual(
+			response.context_data['journal_entry'].notes,
+			'this is a note'
 		)
 
 	def test_uses_correct_template(self):
