@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Entry Details
+{% endblock %}
+
+{% block content %}
+{% if user.email %}
+<h1>Check out your journals here</h1>
+<p>
+<a href="{% url 'journal' %}">list</a>
+</p>
+{% else %}
+<h1>Hi, you should probably login</h1>
+{% endif %}
+{% endblock %}

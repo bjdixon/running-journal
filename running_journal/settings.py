@@ -12,6 +12,20 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+LOGGING = {
+	'version': 1,
+	'handlers': {
+		'console': {
+			'level': 'DEBUG',
+			'class': 'logging.StreamHandler',
+		},
+	},
+	'loggers': {
+		'django': {
+			'handlers': ['console'],
+		},
+	},
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -24,8 +38,14 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+DOMAIN = 'localhost'
+
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+	'accounts.authentication.PersonaAuthenticationBackend',
+)
 
 # Application definition
 
@@ -37,6 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'journal',
+	'accounts',
 )
 
 MIDDLEWARE_CLASSES = (

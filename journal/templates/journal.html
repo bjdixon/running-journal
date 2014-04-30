@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+Create new journal
+{% endblock %}
+
+{% block content %}
+<p>
+<a href="{% url 'journal_create' %}">Create a new journal</a>
+</p>
+{% for journal in object_list %}
+<h2>{{ journal.name }}</h2>
+<a href="{% url 'journal_entry_list' pk=journal.id %}">list</a>
+{% endfor %}
+
+{% endblock %}

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block page_title %}
-Create new journal
+Create a new Journal
 {% endblock %}
 
 {% block content %}
 
-<h2>Create new journal</h2>
+	<h2>Name your journal</h2>
 
-<form action="{% url 'journal_new' %}" method="POST">
+<form action="{% url 'journal_create' %}" method="POST">
 	{% csrf_token %}
 	{% if form.non_field_errors %}
 	<ul>

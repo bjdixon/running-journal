@@ -10,10 +10,10 @@ Delete an entry
 <p class="alert-danger">Are you sure you want to delete this entry?
 {{ journal }}
 </p>
-<form action="{% url 'journal_entry_delete' pk=journal_entry.id %}" method="POST">
+<form action="{% url 'journal_entry_delete' journal_id=journal_id pk=journal_entry.id %}" method="POST">
 	{% csrf_token %}
 	<input id="journal_entry_delete" type="submit" value="Yes, Delete"/>
 </form>
-<a href="{% url 'journal_entry_list' %}">No, Abort!</a>
+<a href="{% url 'journal_entry_list' pk=journal_id %}">No, Abort!</a>
 
 {% endblock %}

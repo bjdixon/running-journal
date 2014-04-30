@@ -5,13 +5,13 @@ Running journal
 {% endblock %}
 
 {% block content %}
-<h1>Running Journal</h1>
-<a href="{% url 'journal_entry_new' %}">Add journal entry</a>
+<h1>{{ title }}</h1>
+<a href="{% url 'journal_entry_new' journal_id=journal_id %}">Add journal entry</a>
 <ul>
 	{% for journal_entry in object_list %}
 	<li>
 	<a href="{{ journal_entry.get_absolute_url }}">{{ journal_entry }}</a>
-	(<a href="{% url 'journal_entry_edit' pk=journal_entry.id %}">Edit</a>)
+	(<a href="{% url 'journal_entry_edit' pk=journal_entry.id journal_id=journal_id %}">Edit</a>)
 	</li>
 	{% endfor %}
 </ul>
