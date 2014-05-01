@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from journal.models import Journal, Journal_Entry
-from journal.forms import CreateJournalForm
+from journal.forms import CreateJournalForm, CreateJournalEntryForm
 
 
 class LoggedInMixin(object):
@@ -36,7 +36,7 @@ class CreateJournalView(LoggedInMixin, CreateView):
 		return HttpResponseRedirect(reverse('journal'))
 
 
-class ListJournalEntriesView(ListView):
+class ListJournalEntriesView(LoggedInMixin, ListView):
 	
 	model = Journal_Entry
 	template_name = 'journal_entry_list.html'
@@ -50,18 +50,16 @@ class ListJournalEntriesView(ListView):
 		context['journal_id'] = self.kwargs['pk']
 		return context
 
-class CreateJournalEntryView(CreateView):
-	# TODO!
-	# the journal id is being passed in as a kwarg['pk']
-	# do ike CreateJournalView and use a custom form that excludes
-	# journal_entry.journal and sets it using the kwarg['pk']
-	# need a separate create and edit view now?
+class CreateJournalEntryView(LoggedInMixin, CreateView):
 
-	model = Journal_Entry
+	form_class = CreateJournalEntryForm
 	template_name = 'edit_journal_entry.html'
 
-	def get_success_url(self):
-		return reverse('journal_entry_list', kwargs={'pk': self.kwargs['journal_id']})
+	def form_valid(self, form):
+		journal_entry = form.save(commit=False)
+		journal_entry.journal = Journal.objects.get(id=self.kwargs['journal_id'])
+		journal_entry.save()
+		return HttpResponseRedirect(reverse('journal_entry_list', kwargs={'pk': self.kwargs['journal_id']}))
 
 	def get_context_data(self, **kwargs):
 		context = super(CreateJournalEntryView, self).get_context_data(**kwargs)
@@ -70,13 +68,15 @@ class CreateJournalEntryView(CreateView):
 		return context
 
 
-class UpdateJournalEntryView(UpdateView):
+class UpdateJournalEntryView(LoggedInMixin, UpdateView):
 
-	model = Journal_Entry
+	form_class = CreateJournalEntryForm
 	template_name = 'edit_journal_entry.html'
+	model = Journal_Entry
 
-	def get_success_url(self):
-		return reverse('journal_entry_list', kwargs={'pk': self.kwargs['journal_id']})
+	def form_valid(self, form):
+		journal_entry = form.save()
+		return HttpResponseRedirect(reverse('journal_entry_list', kwargs={'pk': self.kwargs['journal_id']}))
 
 	def get_context_data(self, **kwargs):
 		context = super(UpdateJournalEntryView, self).get_context_data(**kwargs)
@@ -85,7 +85,7 @@ class UpdateJournalEntryView(UpdateView):
 		return context
 
 
-class DeleteJournalEntryView(DeleteView):
+class DeleteJournalEntryView(LoggedInMixin, DeleteView):
 
 	model = Journal_Entry
 	template_name = 'delete_journal_entry.html'
@@ -99,7 +99,7 @@ class DeleteJournalEntryView(DeleteView):
 		return context
 
 
-class DetailJournalEntryView(DetailView):
+class DetailJournalEntryView(LoggedInMixin, DetailView):
 
 	model = Journal_Entry
 	template_name = 'detail_journal_entry.html'
@@ -108,5 +108,4 @@ class DetailJournalEntryView(DetailView):
 		context = super(DetailJournalEntryView, self).get_context_data(**kwargs)
 		context['journal_id'] = self.kwargs['journal_id']
 		return context
-
 
