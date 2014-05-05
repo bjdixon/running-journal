@@ -27,8 +27,11 @@ LOGGING = {
 	},
 }
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+AUTH_USER_MODEL = 'accounts.User'
+AUTHENTICATION_BACKENDS = (
+	'accounts.authentication.PersonaAuthenticationBackend',
+	'django.contrib.auth.backends.ModelBackend',
+)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '@d)$n#-92xrto6!9hx2q27_tmw!d9ol9@ogh+3t%*(enebv1+#'
@@ -42,10 +45,6 @@ DOMAIN = 'localhost'
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'accounts.User'
-AUTHENTICATION_BACKENDS = (
-	'accounts.authentication.PersonaAuthenticationBackend',
-)
 
 # Application definition
 

@@ -23,6 +23,11 @@ class JournalListView(LoggedInMixin, ListView):
 	def get_queryset(self):
 		return Journal.objects.filter(owner=self.request.user)
 
+	def get_context_data(self, **kwargs):
+		context = super(JournalListView, self).get_context_data(**kwargs)
+		context['user'] = self.request.user
+		return context
+
 
 class CreateJournalView(LoggedInMixin, CreateView):
 	
@@ -47,7 +52,7 @@ class ListJournalEntriesView(LoggedInMixin, ListView):
 	def get_context_data(self, **kwargs):
 		context = super(ListJournalEntriesView, self).get_context_data(**kwargs)
 		context['title'] = Journal.objects.get(id=self.kwargs['pk']).name
-		context['journal_id'] = self.kwargs['pk']
+		context['journal_id'] = self.kwargs['pk'] 
 		return context
 
 class CreateJournalEntryView(LoggedInMixin, CreateView):
